@@ -1,0 +1,70 @@
+{
+  "name": "promptslay",
+  "version": "0.1.0",
+  "description": "Unit tests for your prompts — a prompt regression & evaluation framework for LLM apps",
+  "keywords": [
+    "llm",
+    "prompt-engineering",
+    "evaluation",
+    "regression-testing",
+    "anthropic",
+    "claude",
+    "testing",
+    "ci"
+  ],
+  "author": "Adeen Shukla <adeen@adeen.me> (https://github.com/adeen-s)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adeen-s/promptslay.git"
+  },
+  "bugs": {
+    "url": "https://github.com/adeen-s/promptslay/issues"
+  },
+  "homepage": "https://github.com/adeen-s/promptslay#readme",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "bin": {
+    "promptslay": "./dist/cli/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.104.0",
+    "ajv": "^8.17.1",
+    "commander": "^14.0.0",
+    "diff": "^9.0.0",
+    "picocolors": "^1.1.1",
+    "yaml": "^2.7.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.20.0",
+    "@types/diff": "^7.0.2",
+    "@types/node": "^22.13.0",
+    "eslint": "^9.20.0",
+    "typescript": "^5.9.0",
+    "typescript-eslint": "^8.24.0",
+    "vitest": "^3.2.0"
+  }
+}
