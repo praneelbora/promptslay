@@ -1,0 +1,3 @@
+{"id": "q-ada", "vars": {"question": "Who wrote the first computer program?"}, "assertions": [{"type": "contains", "value": "first computer program"}]}
+{"id": "q-json", "vars": {"question": "Reply with JSON {\"ok\": true}"}, "assertions": [{"type": "regex", "pattern": "ok"}]}
+{"id": "q-similarity", "vars": {"question": "Summarize: the quick brown fox jumps over the lazy dog"}, "assertions": [{"type": "similarity", "value": "Answer briefly: Summarize: the quick brown fox jumps over the lazy dog", "threshold": 0.5}]}

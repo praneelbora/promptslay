@@ -1,0 +1,27 @@
+# Runs entirely offline against the deterministic mock provider — no API key.
+#   npx promptslay run examples/offline.suite.yaml
+name: offline-demo
+description: Demonstrates the YAML suite shape, datasets and deterministic graders.
+
+provider: mock
+model: claude-haiku-4-5
+
+prompt:
+  system: You are a concise assistant.
+  user: |
+    Answer briefly: {{question}}
+
+# Suite-wide assertions run for every case, on top of case-level ones.
+assertions:
+  - type: regex
+    pattern: "."
+
+dataset: data/questions.jsonl
+
+cases:
+  - id: inline-case
+    vars:
+      question: What is the capital of France?
+    assertions:
+      - type: contains
+        value: capital of France
