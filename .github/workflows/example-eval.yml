@@ -1,0 +1,27 @@
+# Example: how a consuming repo wires promptslay into CI with the bundled
+# GitHub Action. Kept here as living documentation (it runs the offline suite).
+name: Prompt evals (example)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  evals:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Run eval suites
+        uses: adeen-s/promptslay@main
+        with:
+          suites: examples/offline.suite.yaml
+          fail-on-regression: "true"
+          # anthropic-api-key: ${{ secrets.ANTHROPIC_API_KEY }}   # for real suites
+      - name: Upload HTML report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: promptslay-report
+          path: promptslay-report

@@ -1,0 +1,44 @@
+name: promptslay
+description: Run promptslay prompt eval suites and fail the build on regressions
+author: Adeen Shukla
+branding:
+  icon: check-circle
+  color: purple
+
+inputs:
+  suites:
+    description: Space-separated paths to suite files (TS or YAML)
+    required: true
+  fail-on-regression:
+    description: Exit non-zero when output drifts from the committed baselines
+    required: false
+    default: "true"
+  reporter:
+    description: Comma-separated reporters (console, html, json)
+    required: false
+    default: console,html
+  output:
+    description: Directory for the HTML report artifact
+    required: false
+    default: promptslay-report
+  anthropic-api-key:
+    description: Anthropic API key (omit when suites use the mock provider)
+    required: false
+  version:
+    description: promptslay version to install
+    required: false
+    default: latest
+
+runs:
+  using: composite
+  steps:
+    - name: Run promptslay
+      shell: bash
+      env:
+        ANTHROPIC_API_KEY: ${{ inputs.anthropic-api-key }}
+      run: |
+        FLAGS="--reporter ${{ inputs.reporter }} --output ${{ inputs.output }}"
+        if [ "${{ inputs.fail-on-regression }}" = "true" ]; then
+          FLAGS="$FLAGS --fail-on-regression"
+        fi
+        npx --yes promptslay@${{ inputs.version }} run ${{ inputs.suites }} $FLAGS
